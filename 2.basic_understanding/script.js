@@ -18,10 +18,18 @@ let mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
 let canvas = document.querySelector("#canvas_1");
-let renderer = new THREE.WebGLRenderer({ canvas });
+let renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 // mesh.rotation.x = Math.PI / 4;
-mesh.rotation.y = Math.PI / 4;
+// mesh.rotation.z = Math.PI / 4;
 
-renderer.render(scene, camera);
+let clock = new THREE.Clock();
+
+const animate = () => {
+  window.requestAnimationFrame(animate);
+  mesh.rotation.y = clock.getElapsedTime() * 2;
+  renderer.render(scene, camera);
+};
+
+animate();
